@@ -2,21 +2,19 @@ package uz.nabijonov.otabek.prayertime.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.week_item.view.*
-import uz.nabijonov.otabek.prayertime.R
+import uz.nabijonov.otabek.prayertime.databinding.WeekItemBinding
 import uz.nabijonov.otabek.prayertime.model.WeeklyModel
 
 class WeeklyAdapter(private val items: ArrayList<WeeklyModel>) :
     RecyclerView.Adapter<WeeklyAdapter.ItemHolder>() {
 
-    inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view)
+    inner class ItemHolder(val binding: WeekItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.week_item, parent, false)
+            WeekItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -32,7 +30,7 @@ class WeeklyAdapter(private val items: ArrayList<WeeklyModel>) :
         )
         val random = color.random()
 
-        holder.itemView.apply {
+        holder.binding.apply {
             weekCard.setCardBackgroundColor(random)
             TVDate.text = item.weekday
             TVDay.text = item.date.split(",")[0]

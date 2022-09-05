@@ -2,8 +2,6 @@ package uz.nabijonov.otabek.prayertime
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.volley.toolbox.StringRequest
-import uz.nabijonov.otabek.prayertime.adapter.MonthlyAdapter
 import uz.nabijonov.otabek.prayertime.api.repository.TimesRepository
 import uz.nabijonov.otabek.prayertime.model.MonthlyModel
 import uz.nabijonov.otabek.prayertime.model.WeeklyModel

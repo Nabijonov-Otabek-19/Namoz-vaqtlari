@@ -4,10 +4,12 @@ package uz.nabijonov.otabek.prayertime.screen
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
 import uz.nabijonov.otabek.prayertime.R
+import uz.nabijonov.otabek.prayertime.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
     private val dayfragment = DayFragment.newInstance()
     private val weekfragment = WeekFragment.newInstance()
     private val monthfragment = MonthFragment.newInstance()
@@ -16,7 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_Container, dayfragment, dayfragment.tag).hide(dayfragment).commit()
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().show(activeFragment).commit()
 
-        bottomNavigationView.setOnItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.actionDay -> {
                     supportFragmentManager.beginTransaction().hide(activeFragment)
