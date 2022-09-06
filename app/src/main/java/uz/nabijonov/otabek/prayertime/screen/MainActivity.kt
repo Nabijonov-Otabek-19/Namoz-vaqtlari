@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
     private val monthfragment = MonthFragment.newInstance()
     private var activeFragment: Fragment = dayfragment
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
