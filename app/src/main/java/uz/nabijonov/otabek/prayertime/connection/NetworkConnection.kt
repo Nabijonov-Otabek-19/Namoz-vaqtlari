@@ -1,11 +1,12 @@
 package uz.nabijonov.otabek.prayertime.connection
 
-import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.*
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkInfo
 import android.os.Build
 import androidx.lifecycle.LiveData
 
@@ -23,9 +24,7 @@ class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> {
                 connectivityManager.registerDefaultNetworkCallback(connectivityManagerCallback())
             }
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-                lollipopNetworkRequest()
-            }
+
             else -> {
                 context.registerReceiver(
                     networkReceiver,
@@ -35,33 +34,18 @@ class NetworkConnection(private val context: Context) : LiveData<Boolean>() {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun lollipopNetworkRequest() {
-        val requestBuilder = NetworkRequest.Builder()
-            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-            .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
-        connectivityManager.registerNetworkCallback(
-            requestBuilder.build(), connectivityManagerCallback()
-        )
-    }
-
     private fun connectivityManagerCallback(): ConnectivityManager.NetworkCallback {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            networkCallback = object : ConnectivityManager.NetworkCallback() {
+        networkCallback = object : ConnectivityManager.NetworkCallback() {
 
-                override fun onLost(network: Network) {
-                    super.onLost(network)
-                    postValue(false)
-                }
-
-                override fun onAvailable(network: Network) {
-                    super.onAvailable(network)
-                    postValue(true)
-                }
+            override fun onLost(network: Network) {
+                super.onLost(network)
+                postValue(false)
             }
-        } else {
-            IllegalAccessError("Error")
+
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                postValue(true)
+            }
         }
         return networkCallback
     }
