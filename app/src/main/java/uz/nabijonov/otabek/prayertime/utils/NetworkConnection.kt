@@ -1,4 +1,4 @@
-package uz.nabijonov.otabek.prayertime.connection
+package uz.nabijonov.otabek.prayertime.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context

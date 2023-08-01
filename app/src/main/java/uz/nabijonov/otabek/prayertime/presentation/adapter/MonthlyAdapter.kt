@@ -1,10 +1,10 @@
-package uz.nabijonov.otabek.prayertime.adapter
+package uz.nabijonov.otabek.prayertime.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.nabijonov.otabek.prayertime.databinding.MonthItemBinding
-import uz.nabijonov.otabek.prayertime.model.MonthlyModel
+import uz.nabijonov.otabek.prayertime.data.common.MonthlyModel
 import kotlin.collections.ArrayList
 
 class MonthlyAdapter(private val items: ArrayList<MonthlyModel>) :

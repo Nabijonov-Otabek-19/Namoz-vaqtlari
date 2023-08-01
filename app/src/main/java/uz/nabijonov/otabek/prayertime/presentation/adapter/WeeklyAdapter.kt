@@ -1,11 +1,11 @@
-package uz.nabijonov.otabek.prayertime.adapter
+package uz.nabijonov.otabek.prayertime.presentation.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.nabijonov.otabek.prayertime.databinding.WeekItemBinding
-import uz.nabijonov.otabek.prayertime.model.WeeklyModel
+import uz.nabijonov.otabek.prayertime.data.common.WeeklyModel
 
 class WeeklyAdapter(private val items: ArrayList<WeeklyModel>) :
     RecyclerView.Adapter<WeeklyAdapter.ItemHolder>() {

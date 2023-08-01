@@ -1,4 +1,4 @@
-package uz.nabijonov.otabek.prayertime
+package uz.nabijonov.otabek.prayertime.app
 
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication

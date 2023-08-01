@@ -1,29 +1,26 @@
-package uz.nabijonov.otabek.prayertime.screen
+package uz.nabijonov.otabek.prayertime.presentation.screen.week
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.nabijonov.otabek.prayertime.MainViewModel
-import uz.nabijonov.otabek.prayertime.connection.NetworkConnection
 import uz.nabijonov.otabek.prayertime.R
-import uz.nabijonov.otabek.prayertime.adapter.WeeklyAdapter
 import uz.nabijonov.otabek.prayertime.databinding.FragmentWeekBinding
+import uz.nabijonov.otabek.prayertime.presentation.adapter.WeeklyAdapter
 import uz.nabijonov.otabek.prayertime.utils.Constansts
+import uz.nabijonov.otabek.prayertime.utils.Constansts.CityName
+import uz.nabijonov.otabek.prayertime.utils.NetworkConnection
 
-class WeekFragment : Fragment() {
+class WeekScreen : Fragment(R.layout.fragment_week) {
 
-    private var _binding: FragmentWeekBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentWeekBinding::bind)
 
     private lateinit var viewModel: MainViewModel
-    private var CITY = "Toshkent"
-
     private lateinit var adapterItems: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +41,6 @@ class WeekFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentWeekBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,8 +50,8 @@ class WeekFragment : Fragment() {
 
         binding.autoCompleteWeek.setOnItemClickListener { adapterView, _, position, _ ->
             val item = adapterView.getItemAtPosition(position).toString()
-            CITY = item
-            binding.TVregion.text = CITY
+            CityName = item
+            binding.TVregion.text = CityName
             loadData()
         }
 
@@ -88,7 +77,7 @@ class WeekFragment : Fragment() {
     }
 
     private fun loadData() {
-        viewModel.getWeeklyTimes(CITY)
+        viewModel.getWeeklyTimes(CityName)
     }
 
 //    private fun getTime() {
@@ -98,6 +87,6 @@ class WeekFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(): WeekFragment = WeekFragment()
+        fun newInstance(): WeekScreen = WeekScreen()
     }
 }

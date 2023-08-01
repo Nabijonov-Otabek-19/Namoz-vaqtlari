@@ -1,18 +1,19 @@
-package uz.nabijonov.otabek.prayertime.screen
-
+package uz.nabijonov.otabek.prayertime
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import uz.nabijonov.otabek.prayertime.R
 import uz.nabijonov.otabek.prayertime.databinding.ActivityMainBinding
+import uz.nabijonov.otabek.prayertime.presentation.screen.day.DayScreen
+import uz.nabijonov.otabek.prayertime.presentation.screen.month.MonthScreen
+import uz.nabijonov.otabek.prayertime.presentation.screen.week.WeekScreen
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private val dayfragment = DayFragment.newInstance()
-    private val weekfragment = WeekFragment.newInstance()
-    private val monthfragment = MonthFragment.newInstance()
+    private val dayfragment = DayScreen.newInstance()
+    private val weekfragment = WeekScreen.newInstance()
+    private val monthfragment = MonthScreen.newInstance()
     private var activeFragment: Fragment = dayfragment
 
     override fun onCreate(savedInstanceState: Bundle?) {

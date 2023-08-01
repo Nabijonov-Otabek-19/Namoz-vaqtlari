@@ -1,28 +1,26 @@
-package uz.nabijonov.otabek.prayertime.screen
+package uz.nabijonov.otabek.prayertime.presentation.screen.month
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.nabijonov.otabek.prayertime.MainViewModel
-import uz.nabijonov.otabek.prayertime.connection.NetworkConnection
 import uz.nabijonov.otabek.prayertime.R
-import uz.nabijonov.otabek.prayertime.adapter.MonthlyAdapter
 import uz.nabijonov.otabek.prayertime.databinding.FragmentMonthBinding
+import uz.nabijonov.otabek.prayertime.presentation.adapter.MonthlyAdapter
 import uz.nabijonov.otabek.prayertime.utils.Constansts
+import uz.nabijonov.otabek.prayertime.utils.Constansts.CityName
+import uz.nabijonov.otabek.prayertime.utils.NetworkConnection
 
-class MonthFragment : Fragment() {
+class MonthScreen : Fragment(R.layout.fragment_month) {
 
-    private var _binding: FragmentMonthBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentMonthBinding::bind)
 
     private lateinit var viewModel: MainViewModel
-    private var CITY = "Toshkent"
     private var NUMBER = 1
 
     private val item_numbers = arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
@@ -50,14 +48,6 @@ class MonthFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMonthBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -69,7 +59,7 @@ class MonthFragment : Fragment() {
 
         binding.autoCompleteMonth.setOnItemClickListener { adapterView, _, position, _ ->
             val item = adapterView.getItemAtPosition(position).toString()
-            CITY = item
+            CityName = item
             loadData()
         }
 
@@ -101,12 +91,12 @@ class MonthFragment : Fragment() {
     }
 
     private fun loadData() {
-        viewModel.getMonthlyTimes(CITY, NUMBER)
+        viewModel.getMonthlyTimes(CityName, NUMBER)
     }
 
 
     companion object {
         @JvmStatic
-        fun newInstance(): MonthFragment = MonthFragment()
+        fun newInstance(): MonthScreen = MonthScreen()
     }
 }

@@ -1,4 +1,4 @@
-package uz.nabijonov.otabek.prayertime.api
+package uz.nabijonov.otabek.prayertime.data.source.remote.api
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

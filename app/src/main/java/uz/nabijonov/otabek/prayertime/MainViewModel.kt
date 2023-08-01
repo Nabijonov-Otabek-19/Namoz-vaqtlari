@@ -2,9 +2,9 @@ package uz.nabijonov.otabek.prayertime
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import uz.nabijonov.otabek.prayertime.api.repository.TimesRepository
-import uz.nabijonov.otabek.prayertime.model.MonthlyModel
-import uz.nabijonov.otabek.prayertime.model.WeeklyModel
+import uz.nabijonov.otabek.prayertime.domain.repository.TimesRepository
+import uz.nabijonov.otabek.prayertime.data.common.MonthlyModel
+import uz.nabijonov.otabek.prayertime.data.common.WeeklyModel
 
 class MainViewModel : ViewModel() {
 

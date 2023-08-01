@@ -1,4 +1,4 @@
-package uz.nabijonov.otabek.prayertime.model
+package uz.nabijonov.otabek.prayertime.data.common
 
 data class Times(
     val asr: String,

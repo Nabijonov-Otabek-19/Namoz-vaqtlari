@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mechit2"
-    tools:context=".screen.MainActivity">
+    tools:context=".MainActivity">
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
