@@ -4,7 +4,7 @@ object Constansts {
 
     var CityName = "Toshkent"
 
-    const val WEEK_URL = "https://islomapi.uz/api/"
+    const val BASE_URL = "https://islomapi.uz/api/"
 
     val regions = arrayListOf(
         "Toshkent", "Buxoro", "Namangan", "Andijon",

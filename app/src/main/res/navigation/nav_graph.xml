@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph"
+    app:startDestination="@id/dayScreen">
+
+    <fragment
+        android:id="@+id/dayScreen"
+        android:name="uz.nabijonov.otabek.prayertime.presentation.screen.day.DayScreen"
+        android:label="DayScreen"
+        tools:layout="@layout/fragment_day" />
+
+    <fragment
+        android:id="@+id/monthScreen"
+        android:name="uz.nabijonov.otabek.prayertime.presentation.screen.month.MonthScreen"
+        android:label="MonthScreen"
+        tools:layout="@layout/fragment_month" />
+
+    <fragment
+        android:id="@+id/weekScreen"
+        android:name="uz.nabijonov.otabek.prayertime.presentation.screen.week.WeekScreen"
+        android:label="WeekScreen"
+        tools:layout="@layout/fragment_week" />
+</navigation>

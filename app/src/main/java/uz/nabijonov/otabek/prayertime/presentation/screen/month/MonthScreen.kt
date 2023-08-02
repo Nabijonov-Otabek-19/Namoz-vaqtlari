@@ -3,53 +3,52 @@ package uz.nabijonov.otabek.prayertime.presentation.screen.month
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import uz.nabijonov.otabek.prayertime.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import uz.nabijonov.otabek.prayertime.R
 import uz.nabijonov.otabek.prayertime.databinding.FragmentMonthBinding
 import uz.nabijonov.otabek.prayertime.presentation.adapter.MonthlyAdapter
 import uz.nabijonov.otabek.prayertime.utils.Constansts
 import uz.nabijonov.otabek.prayertime.utils.Constansts.CityName
 import uz.nabijonov.otabek.prayertime.utils.NetworkConnection
+import uz.nabijonov.otabek.prayertime.utils.toast
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MonthScreen : Fragment(R.layout.fragment_month) {
 
+    private val viewModel by viewModels<MonthViewModelImpl>()
     private val binding by viewBinding(FragmentMonthBinding::bind)
 
-    private lateinit var viewModel: MainViewModel
-    private var NUMBER = 1
-
+    private var MONTH = 1
     private val item_numbers = arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
-    lateinit var adapterItems: ArrayAdapter<String>
-    lateinit var adapterItems2: ArrayAdapter<Int>
+    private lateinit var adapterItems: ArrayAdapter<String>
+    private lateinit var adapterItems2: ArrayAdapter<Int>
 
+    @Inject
+    lateinit var adapter: MonthlyAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
-        val networkConnection = NetworkConnection(requireContext())
-        networkConnection.observe(requireActivity()) {
+        val networkConnection = NetworkConnection(requireActivity())
+        networkConnection.observe(viewLifecycleOwner) {
             if (it) {
+                loadData()
                 binding.linearMonthData.visibility = View.VISIBLE
                 binding.linearMonthNoInternet.visibility = View.GONE
-                loadData()
             } else {
                 binding.linearMonthData.visibility = View.GONE
                 binding.linearMonthNoInternet.visibility = View.VISIBLE
             }
         }
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding.monthRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.monthRecycler.adapter = adapter
 
         adapterItems =
             ArrayAdapter<String>(requireContext(), R.layout.list_item, Constansts.regions)
@@ -65,23 +64,22 @@ class MonthScreen : Fragment(R.layout.fragment_month) {
 
         binding.autoCompleteNumber.setOnItemClickListener { adapterView, _, position, _ ->
             val number = adapterView.getItemAtPosition(position)
-            NUMBER = number as Int
+            MONTH = number as Int
             loadData()
         }
 
         loadData()
 
-        viewModel.error.observe(requireActivity()) {
-            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        viewModel.errorData.observe(viewLifecycleOwner) {
+            toast(it)
         }
 
-        viewModel.progress.observe(requireActivity()) {
+        viewModel.progressData.observe(viewLifecycleOwner) {
             binding.monthswipe.isRefreshing = it
         }
 
-        viewModel.monthlyTimes.observe(requireActivity()) {
-            binding.monthRecycler.layoutManager = LinearLayoutManager(requireActivity())
-            binding.monthRecycler.adapter = MonthlyAdapter(it)
+        viewModel.successData.observe(viewLifecycleOwner) {
+            adapter.setData(it)
         }
 
         binding.monthswipe.isRefreshing = true
@@ -91,12 +89,6 @@ class MonthScreen : Fragment(R.layout.fragment_month) {
     }
 
     private fun loadData() {
-        viewModel.getMonthlyTimes(CityName, NUMBER)
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(): MonthScreen = MonthScreen()
+        viewModel.loadData(CityName, MONTH)
     }
 }

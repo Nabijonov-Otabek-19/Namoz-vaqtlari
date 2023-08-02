@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/actionDay"
+        android:id="@+id/dayScreen"
         android:icon="@drawable/ic_day"
         android:title="Bugun" />
 
     <item
-        android:id="@+id/actionWeek"
+        android:id="@+id/weekScreen"
         android:icon="@drawable/ic_week"
         android:title="Haftalik" />
 
     <item
-        android:id="@+id/actionMonth"
+        android:id="@+id/monthScreen"
         android:icon="@drawable/ic_month"
         android:title="Oylik" />
 

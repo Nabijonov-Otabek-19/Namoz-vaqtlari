@@ -1,6 +1,6 @@
 package uz.nabijonov.otabek.prayertime.data.common
 
-data class WeeklyModel(
+data class WeeklyItem(
     val date: String,
     val region: String,
     val times: Times,

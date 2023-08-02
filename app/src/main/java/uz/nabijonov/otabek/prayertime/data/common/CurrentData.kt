@@ -1,8 +1,7 @@
 package uz.nabijonov.otabek.prayertime.data.common
 
-data class MonthlyModel(
+data class CurrentData(
     val date: String,
-    val month: Int,
     val region: String,
     val times: Times,
     val weekday: String

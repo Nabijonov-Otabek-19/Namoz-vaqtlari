@@ -1,19 +1,24 @@
 package uz.nabijonov.otabek.prayertime.data.source.remote.api
 
-import io.reactivex.Observable
+
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import uz.nabijonov.otabek.prayertime.data.common.MonthlyModel
-import uz.nabijonov.otabek.prayertime.data.common.WeeklyModel
-import kotlin.collections.ArrayList
+import uz.nabijonov.otabek.prayertime.data.common.AllMonthData
+import uz.nabijonov.otabek.prayertime.data.common.AllWeekData
+import uz.nabijonov.otabek.prayertime.data.common.CurrentData
 
 interface Api {
+
+    @GET("present/day?")
+    suspend fun getCurrentTimes(@Query("region") reg: String?): Response<CurrentData>
+
     @GET("present/week?")
-    fun getWeeklyTimes(@Query("region") reg: String?): Observable<ArrayList<WeeklyModel>>
+    suspend fun getWeeklyTimes(@Query("region") reg: String?): Response<AllWeekData>
 
     @GET("monthly?")
-    fun getMonthlyTimes(
+    suspend fun getMonthlyTimes(
         @Query("region") reg: String?,
         @Query("month") month: Int
-    ): Observable<ArrayList<MonthlyModel>>
+    ): Response<AllMonthData>
 }
