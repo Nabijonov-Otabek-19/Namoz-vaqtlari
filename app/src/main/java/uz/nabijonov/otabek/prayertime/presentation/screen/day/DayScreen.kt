@@ -9,8 +9,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.nabijonov.otabek.prayertime.R
 import uz.nabijonov.otabek.prayertime.databinding.FragmentDayBinding
-import uz.nabijonov.otabek.prayertime.utils.Constansts
-import uz.nabijonov.otabek.prayertime.utils.Constansts.CityName
+import uz.nabijonov.otabek.prayertime.utils.*
 import uz.nabijonov.otabek.prayertime.utils.NetworkConnection
 import uz.nabijonov.otabek.prayertime.utils.toast
 
@@ -61,7 +60,7 @@ class DayScreen : Fragment(R.layout.fragment_day) {
         }
 
         adapterItems =
-            ArrayAdapter<String>(requireContext(), R.layout.list_item, Constansts.regions)
+            ArrayAdapter<String>(requireContext(), R.layout.list_item, regions)
         binding.autoCompleteTxt.setAdapter(adapterItems)
 
         binding.autoCompleteTxt.setOnItemClickListener { adapterView, _, position, _ ->
