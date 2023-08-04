@@ -11,8 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.nabijonov.otabek.prayertime.R
 import uz.nabijonov.otabek.prayertime.databinding.FragmentWeekBinding
 import uz.nabijonov.otabek.prayertime.presentation.adapter.WeeklyAdapter
-import uz.nabijonov.otabek.prayertime.utils.Constansts
-import uz.nabijonov.otabek.prayertime.utils.Constansts.CityName
+import uz.nabijonov.otabek.prayertime.utils.*
 import uz.nabijonov.otabek.prayertime.utils.NetworkConnection
 import uz.nabijonov.otabek.prayertime.utils.toast
 import javax.inject.Inject
@@ -47,7 +46,7 @@ class WeekScreen : Fragment(R.layout.fragment_week) {
         binding.weekRecycler.adapter = adapter
 
         adapterItems =
-            ArrayAdapter<String>(requireContext(), R.layout.list_item, Constansts.regions)
+            ArrayAdapter<String>(requireContext(), R.layout.list_item, regions)
         binding.autoCompleteWeek.setAdapter(adapterItems)
 
         binding.autoCompleteWeek.setOnItemClickListener { adapterView, _, position, _ ->

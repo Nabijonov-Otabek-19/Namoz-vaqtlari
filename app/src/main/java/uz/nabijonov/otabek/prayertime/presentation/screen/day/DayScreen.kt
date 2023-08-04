@@ -6,10 +6,6 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import dagger.hilt.android.AndroidEntryPoint
 import uz.nabijonov.otabek.prayertime.R
 import uz.nabijonov.otabek.prayertime.databinding.FragmentDayBinding
@@ -26,8 +22,8 @@ class DayScreen : Fragment(R.layout.fragment_day) {
 
     private lateinit var adapterItems: ArrayAdapter<String>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val networkConnection = NetworkConnection(requireContext())
         networkConnection.observe(requireActivity()) {
@@ -40,10 +36,6 @@ class DayScreen : Fragment(R.layout.fragment_day) {
                 binding.linearNoInternet.visibility = View.VISIBLE
             }
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         viewModel.errorData.observe(viewLifecycleOwner) {
             toast(it)
@@ -53,7 +45,7 @@ class DayScreen : Fragment(R.layout.fragment_day) {
             binding.swipe.isRefreshing = it
         }
 
-        viewModel.successData.observe(viewLifecycleOwner){
+        viewModel.successData.observe(viewLifecycleOwner) {
             binding.apply {
                 TVDay.text = it.region
                 TVDate.text = it.weekday
@@ -75,49 +67,12 @@ class DayScreen : Fragment(R.layout.fragment_day) {
         binding.autoCompleteTxt.setOnItemClickListener { adapterView, _, position, _ ->
             val item = adapterView.getItemAtPosition(position).toString()
             CityName = item
-            //getTime()
             viewModel.loadData(CityName)
         }
 
         binding.swipe.isRefreshing = true
         binding.swipe.setOnRefreshListener {
-            //getTime()
             viewModel.loadData(CityName)
         }
-
-        //getTime()
-    }
-
-    private fun getTime() {
-
-        val url = "https://islomapi.uz/api/present/day?region=$CityName"
-
-        val queue: RequestQueue = Volley.newRequestQueue(requireActivity())
-        val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
-            binding.swipe.isRefreshing = false
-
-            try {
-                binding.apply {
-                    TVDay.text = response.getString("region")
-                    TVTime.text = response.getString("date")
-                    TVDate.text = response.getString("weekday")
-                    val array = response.getJSONObject("times")
-                    TVbomdod.text = array.getString("tong_saharlik")
-                    TVquyosh.text = array.getString("quyosh")
-                    TVpeshin.text = array.getString("peshin")
-                    TVasr.text = array.getString("asr")
-                    TVshom.text = array.getString("shom_iftor")
-                    TVhufton.text = array.getString("hufton")
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-        }, {
-            binding.swipe.isRefreshing = false
-            toast("Check Internet Connection")
-        })
-        queue.add(request)
     }
 }

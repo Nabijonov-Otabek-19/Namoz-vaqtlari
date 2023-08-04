@@ -11,10 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.nabijonov.otabek.prayertime.R
 import uz.nabijonov.otabek.prayertime.databinding.FragmentMonthBinding
 import uz.nabijonov.otabek.prayertime.presentation.adapter.MonthlyAdapter
-import uz.nabijonov.otabek.prayertime.utils.Constansts
-import uz.nabijonov.otabek.prayertime.utils.Constansts.CityName
-import uz.nabijonov.otabek.prayertime.utils.NetworkConnection
-import uz.nabijonov.otabek.prayertime.utils.toast
+import uz.nabijonov.otabek.prayertime.utils.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,9 +19,6 @@ class MonthScreen : Fragment(R.layout.fragment_month) {
 
     private val viewModel by viewModels<MonthViewModelImpl>()
     private val binding by viewBinding(FragmentMonthBinding::bind)
-
-    private var MONTH = 1
-    private val item_numbers = arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
     private lateinit var adapterItems: ArrayAdapter<String>
     private lateinit var adapterItems2: ArrayAdapter<Int>
@@ -51,7 +45,7 @@ class MonthScreen : Fragment(R.layout.fragment_month) {
         binding.monthRecycler.adapter = adapter
 
         adapterItems =
-            ArrayAdapter<String>(requireContext(), R.layout.list_item, Constansts.regions)
+            ArrayAdapter<String>(requireContext(), R.layout.list_item, regions)
         adapterItems2 = ArrayAdapter<Int>(requireContext(), R.layout.list_item, item_numbers)
         binding.autoCompleteMonth.setAdapter(adapterItems)
         binding.autoCompleteNumber.setAdapter(adapterItems2)
